@@ -124,4 +124,27 @@ class TransferManagerTest {
 
         verify(connector).listFiles("/sdcard/DCIM")
     }
+
+    @Test
+    fun `transferData - invoca onProgress per ogni file trasferito`() {
+        whenever(connector.isConnected()).thenReturn(true)
+        whenever(connector.listFiles(any())).thenReturn(listOf(fileA, fileB))
+        whenever(connector.transferFile(any())).thenAnswer {
+            TransferResult.Success(it.getArgument(0))
+        }
+        val reported = mutableListOf<TransferResult>()
+
+        manager.transferData("/sdcard", onProgress = { reported.add(it) })
+
+        assertEquals(2, reported.size)
+    }
+
+    @Test
+    fun `transferData - funziona senza callback (onProgress null)`() {
+        whenever(connector.isConnected()).thenReturn(true)
+        whenever(connector.listFiles(any())).thenReturn(listOf(fileA))
+        whenever(connector.transferFile(any())).thenReturn(TransferResult.Success(fileA))
+
+        assertDoesNotThrow { manager.transferData("/sdcard") }
+    }
 }
