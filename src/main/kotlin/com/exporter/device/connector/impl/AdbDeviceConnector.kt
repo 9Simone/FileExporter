@@ -26,7 +26,9 @@ class AdbDeviceConnector(
 
     override fun listFiles(path: String): List<FileEntry> {
         val result = executeAdbCommand("shell", "ls", "-la", path)
-        return FileMapper.mapToFileEntry(result.stdout)
+        val basePath = if (path.endsWith("/")) path.dropLast(1) else path
+        val entries = FileMapper.mapToFileEntry(result.stdout)
+        return entries.map { entry -> entry.copy(path = "$basePath/${entry.path}") }
     }
 
     override fun transferFile(entry: FileEntry): TransferResult {
