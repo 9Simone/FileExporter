@@ -1,5 +1,6 @@
-package com.exporter.device.connector
+package com.exporter.device.connector.impl
 
+import com.exporter.device.connector.DeviceConnector
 import com.exporter.model.FileEntry
 import com.exporter.model.TransferResult
 import com.exporter.device.utility.FileMapper
