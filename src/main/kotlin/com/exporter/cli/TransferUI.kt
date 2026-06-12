@@ -53,16 +53,18 @@ class TransferUI(private val terminal: Terminal) {
 
         anim.update(state(null))
 
-        for (file in files) {
-            tick++
-            anim.update(state(file))
-            val result = connector.transferFile(file)
-            results.add(result)
-            anim.update(state(file))
+        try {
+            for (file in files) {
+                tick++
+                anim.update(state(file))
+                val result = connector.transferFile(file)
+                results.add(result)
+                anim.update(state(file))
+            }
+            anim.update(state(null))
+        } finally {
+            anim.stop()
         }
-
-        anim.update(state(null))
-        anim.stop()
 
         printSummary(results, System.currentTimeMillis() - startTime)
         return results
