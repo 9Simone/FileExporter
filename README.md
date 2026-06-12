@@ -1,4 +1,4 @@
-# Exporter
+# File Exporter
 
 A command-line tool written in Kotlin for exporting files from an Android device (via ADB) or from a local filesystem path to a local output directory. Features an interactive wizard UI and a live animated transfer progress display powered by [Mordant](https://github.com/ajalt/mordant).
 
