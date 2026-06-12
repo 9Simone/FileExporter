@@ -1,9 +1,14 @@
-class TransferManager (
+package com.exporter.transfer
+
+import com.exporter.device.DeviceConnector
+import com.exporter.model.TransferResult
+
+class TransferManager(
     private val connector: DeviceConnector
 ) {
 
-    fun transferData(devicePath: String) : List<TransferResult> {
-        if (!connector.isConnected()){
+    fun transferData(devicePath: String): List<TransferResult> {
+        if (!connector.isConnected()) {
             throw IllegalStateException("Error! Device not connected.")
         }
 

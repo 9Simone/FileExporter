@@ -1,10 +1,18 @@
-class AdbDeviceConnector (
+package com.exporter.device
+
+import com.exporter.model.FileEntry
+import com.exporter.model.TransferResult
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.util.concurrent.TimeUnit
+
+class AdbDeviceConnector(
     private val adbPath: String,
     private val basePath: String,
     private val timeoutSeconds: Long
-): DeviceConnector {
+) : DeviceConnector {
 
-    data class ProcessResult (
+    data class ProcessResult(
         val stdout: String,
         val exitCode: Int
     )
@@ -16,7 +24,7 @@ class AdbDeviceConnector (
 
     override fun listFiles(path: String): List<FileEntry> {
         val result = executeAdbCommand("shell", "ls", "-la", path)
-        return FileMapper().mapToFileEntry(result.stdout)
+        return FileMapper.mapToFileEntry(result.stdout)
     }
 
     override fun transferFile(entry: FileEntry): TransferResult {
@@ -37,7 +45,7 @@ class AdbDeviceConnector (
 
         val process = processBuilder.start()
         val stdout = process.inputStream.bufferedReader().readText()
-        process.waitFor(timeoutSeconds, java.util.concurrent.TimeUnit.SECONDS)
+        process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
 
         return ProcessResult(stdout = stdout, exitCode = process.exitValue())
     }

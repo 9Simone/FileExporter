@@ -1,3 +1,13 @@
+package com.exporter.transfer
+
+import com.exporter.device.DeviceConnector
+import com.exporter.model.FileEntry
+import com.exporter.model.TransferResult
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.mockito.kotlin.*
+
 class TransferManagerTest {
 
     private val connector: DeviceConnector = mock()
@@ -5,8 +15,6 @@ class TransferManagerTest {
 
     private val fileA = FileEntry(path = "/sdcard/foto.jpg", size = 1024L, lastModified = null)
     private val fileB = FileEntry(path = "/sdcard/video.mp4", size = 2048L, lastModified = null)
-
-    // ── isConnected ──────────────────────────
 
     @Test
     fun `transferData - lancia IllegalStateException se device non connesso`() {
@@ -28,8 +36,6 @@ class TransferManagerTest {
         assertTrue(ex.message!!.contains("not connected", ignoreCase = true))
     }
 
-    // ── listFiles vuoto ───────────────────────
-
     @Test
     fun `transferData - lancia IllegalStateException se nessun file trovato`() {
         whenever(connector.isConnected()).thenReturn(true)
@@ -39,8 +45,6 @@ class TransferManagerTest {
             manager.transferData("/sdcard/vuota")
         }
     }
-
-    // ── trasferimento ─────────────────────────
 
     @Test
     fun `transferData - restituisce un risultato per ogni file`() {

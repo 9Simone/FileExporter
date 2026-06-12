@@ -1,7 +1,8 @@
+package com.exporter.device
+
+import com.exporter.model.FileEntry
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
-import org.mockito.kotlin.*
 
 class FileMapperTest {
 
@@ -97,9 +98,6 @@ class FileMapperTest {
 
         val result = FileMapper.mapToFileEntry(output)
 
-        // La riga ha 9 parti ma size non parsabile — dipende dall'impl:
-        // se toLongOrNull() ?: 0L allora size == 0, altrimenti la riga viene scartata.
-        // Questo test documenta il comportamento atteso — adattalo alla tua scelta.
         if (result.isNotEmpty()) {
             assertEquals(0L, result[0].size)
         }

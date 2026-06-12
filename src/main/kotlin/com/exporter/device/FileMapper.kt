@@ -1,13 +1,17 @@
+package com.exporter.device
+
+import com.exporter.model.FileEntry
+
 object FileMapper {
 
     fun mapToFileEntry(output: String): List<FileEntry> {
         return output.lines().drop(1).mapNotNull { line ->
-            val parts = line.split("\\s+".toRegex(), 9)
-            if (parts.size == 9) {
+            val parts = line.trim().split("\\s+".toRegex(), 8)
+            if (parts.size == 8) {
                 FileEntry(
-                    name = parts[8],
+                    path = parts[7],
                     size = parts[4].toLongOrNull() ?: 0L,
-                    isDirectory = parts[0].startsWith("d")
+                    lastModified = null
                 )
             } else {
                 null

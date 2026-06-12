@@ -1,22 +1,30 @@
-@Command(name = "export", description = "Export data from the connected device")
+package com.exporter.cli
+
+import com.exporter.device.ConnectorType
+import com.exporter.device.DeviceConnectorFactory
+import com.exporter.model.TransferResult
+import com.exporter.transfer.TransferManager
+import picocli.CommandLine.Command
+import picocli.CommandLine.Option
+import java.util.concurrent.Callable
+
+@Command(name = "export", description = ["Export data from the connected device"])
 class ExportCommand : Callable<Int> {
 
-    @Option(names = ["-c", "--connector-path"], description = "Path to the connector binary", required = true)
+    @Option(names = ["-c", "--connector-path"], description = ["Path to the connector binary"], required = true)
     private lateinit var connectorPath: String
 
-    @Option(names = ["-d", "--connector-type"], description = "Type of the connector (e.g., ADB)", required = true)
+    @Option(names = ["-d", "--connector-type"], description = ["Type of the connector (e.g., ADB)"], required = true)
     private lateinit var connectorType: ConnectorType
 
-    @Option(names = ["-s", "--source"], description = "Source path on the device to export from", required = true)
+    @Option(names = ["-s", "--source"], description = ["Source path on the device to export from"], required = true)
     private lateinit var devicePath: String
 
-    @Option(names = ["-o", "--output"], description = "Local base path for exported files", required = true)
+    @Option(names = ["-o", "--output"], description = ["Local base path for exported files"], required = true)
     private lateinit var outputPath: String
 
-    @Option(names = ["-t", "--timeout"], description = "Timeout in seconds", defaultValue = "30")
+    @Option(names = ["-t", "--timeout"], description = ["Timeout in seconds"], defaultValue = "30")
     private var timeoutSeconds: Long = 30
-
-
 
     override fun call(): Int {
         val connector = DeviceConnectorFactory.create(connectorType, connectorPath, outputPath, timeoutSeconds)
@@ -28,7 +36,6 @@ class ExportCommand : Callable<Int> {
             val failureResults = results.filterIsInstance<TransferResult.Failure>()
             successResults.forEach { println("Successfully exported: ${it.fileEntry.name}") }
             failureResults.forEach { println("Failed to export: ${it.fileEntry.name} - ${it.error.message}") }
-            
         } catch (e: Exception) {
             e.printStackTrace()
             return 1

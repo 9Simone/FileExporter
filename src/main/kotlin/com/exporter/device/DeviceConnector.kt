@@ -1,3 +1,8 @@
+package com.exporter.device
+
+import com.exporter.model.FileEntry
+import com.exporter.model.TransferResult
+
 interface DeviceConnector {
     fun isConnected(): Boolean
     fun listFiles(path: String): List<FileEntry>
