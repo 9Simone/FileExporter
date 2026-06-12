@@ -1,7 +1,7 @@
 package com.exporter.cli
 
-import com.exporter.device.ConnectorType
-import com.exporter.device.DeviceConnectorFactory
+import com.exporter.device.connector.ConnectorType
+import com.exporter.device.connector.DeviceConnectorFactory
 import com.exporter.model.TransferResult
 import com.exporter.transfer.TransferManager
 import picocli.CommandLine.Command
@@ -11,7 +11,7 @@ import java.util.concurrent.Callable
 @Command(name = "export", description = ["Export data from the connected device"])
 class ExportCommand : Callable<Int> {
 
-    @Option(names = ["-c", "--connector-path"], description = ["Path to the connector binary"], required = true)
+    @Option(names = ["-c", "--connector-path"], description = ["Path to the connector binary"], defaultValue = "connector/path")
     private lateinit var connectorPath: String
 
     @Option(names = ["-d", "--connector-type"], description = ["Type of the connector (e.g., ADB)"], required = true)

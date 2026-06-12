@@ -1,5 +1,6 @@
 package com.exporter.device
 
+import com.exporter.device.utility.FileMapper
 import com.exporter.model.FileEntry
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

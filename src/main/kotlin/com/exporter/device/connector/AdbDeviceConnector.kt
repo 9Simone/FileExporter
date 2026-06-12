@@ -1,7 +1,8 @@
-package com.exporter.device
+package com.exporter.device.connector
 
 import com.exporter.model.FileEntry
 import com.exporter.model.TransferResult
+import com.exporter.device.utility.FileMapper
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.concurrent.TimeUnit

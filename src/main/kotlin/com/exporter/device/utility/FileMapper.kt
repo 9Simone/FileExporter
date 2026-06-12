@@ -1,4 +1,4 @@
-package com.exporter.device
+package com.exporter.device.utility
 
 import com.exporter.model.FileEntry
 

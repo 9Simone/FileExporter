@@ -1,4 +1,4 @@
-package com.exporter.device
+package com.exporter.device.connector
 
 import com.exporter.model.FileEntry
 import com.exporter.model.TransferResult

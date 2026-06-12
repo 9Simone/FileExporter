@@ -1,6 +1,6 @@
 package com.exporter.transfer
 
-import com.exporter.device.DeviceConnector
+import com.exporter.device.connector.DeviceConnector
 import com.exporter.model.TransferResult
 
 class TransferManager(
