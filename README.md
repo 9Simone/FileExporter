@@ -142,6 +142,13 @@ sudo apt install adb
 ```
 
 **Windows:** Download the [Android SDK Platform Tools](https://developer.android.com/tools/releases/platform-tools) and add the folder to your `PATH`.
+1. Press `Windows + S` and search for **"Environment Variables"**
+2. Click **"Edit the system environment variables"**
+3. Click **"Environment Variables"** at the bottom
+4. Under **"System variables"** find `Path` and click **"Edit"**
+5. Click **"New"** and add the path to the extracted folder (e.g. `C:\platform-tools`)
+6. Click OK on all windows
+Open a new terminal and verify the installation.
 
 Verify the installation:
 ```bash
